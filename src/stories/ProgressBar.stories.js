@@ -6,9 +6,8 @@ import PageBanner from '../components/PageBanner';
 import { Text } from 'components';
 
 storiesOf('ProgressBar', module).add('with Edit Profile', () => (
-  <div>
-    {/* <p className={styles.progressBarMarginMedium} /> */}
-    <Text typeScale="Body">
+  <div className="sb-page-wrapper">
+    <Text className="sb-component-group-subheading" typeScale="h3">
       Small Margin/Size Progress Bar With Heading and Percent
     </Text>
     <ProgressBar
@@ -19,7 +18,7 @@ storiesOf('ProgressBar', module).add('with Edit Profile', () => (
       width="small"
     />
     <p className={styles.progressBarMarginMedium} />
-    <Text type="H3">
+    <Text className="sb-component-group-subheading" typeScale="h3">
       Medium Margin/Size Progress Bar With Heading and Percent
     </Text>
     <ProgressBar
@@ -30,7 +29,7 @@ storiesOf('ProgressBar', module).add('with Edit Profile', () => (
       size="medium"
     />
     <p className={styles.progressBarMarginMedium} />
-    <Text type="H3">
+    <Text className="sb-component-group-subheading" typeScale="h3">
       Large Margin/Size Progress Bar Without Heading and Percent
     </Text>
     <ProgressBar
@@ -40,7 +39,9 @@ storiesOf('ProgressBar', module).add('with Edit Profile', () => (
       size="large"
     />
     <p className={styles.progressBarMarginMedium} />
-    <Text type="H3">Profile Progress Bar using PageBanner</Text>
+    <Text className="sb-component-group-subheading" typeScale="h3">
+      Profile Progress Bar using PageBanner
+    </Text>
     <PageBanner margin="medium">
       <ProgressBar
         heading="Profile Stength"

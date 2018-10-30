@@ -1,25 +1,26 @@
 @import "~styles/variables.scss";
 
 .pageBanner {
+  width: 100%;
+  height: $base-line-height + 0.5rem;
+  margin: 0;
+  padding: 0;
+  border-width: 0;
+  border-style: solid;
+  border-radius: 0;
+  border-color: $brand-grey;
   background-color: $brand-lightGrey;
   overflow: hidden;
   display: flex;
-}
-
-.pageBannerContent {
-  flex: 1;
-  display: flex;
-  flex-wrap: nowrap;
+  box-shadow: $base-box-shadow;
   align-items: center;
 }
 
-/*
 .pageBanner .pageBannerCloseButton:last-child {
   margin-left: auto;
   padding-right: $base_spacing;
   padding-left: $base_spacing;
 }
-*/
 
 .pageBannerCloseButton {
   display: flex;

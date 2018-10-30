@@ -43,7 +43,7 @@ storiesOf('PageBanner', module).add('with ProgressBar', () => (
       <ProgressBar
         heading="Profile Strength"
         percentage={75}
-        margin="medium"
+        margin="small"
         size="small"
       />
       <Button onClick={action('Edit clicked')} type="link">

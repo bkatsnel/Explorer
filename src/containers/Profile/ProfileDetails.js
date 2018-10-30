@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './ProfileDetails.module.scss';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { size, values } from 'lodash';
 import { Loader } from 'components';
 import {
   About,
@@ -22,46 +21,8 @@ import {
   loadedUserStatsSelector
 } from 'public-modules/UserInfo/selectors';
 import { ipfsToHttp } from 'utils/helpers';
-import { profileUISelector } from './selectors';
+import { profileUISelector, profileStrengthSelector } from './selectors';
 import { actions } from './reducer';
-
-const isEmptyProperty = property => {
-  return (
-    property === undefined ||
-    property === null ||
-    (typeof property === 'object' && size(property) === 0) ||
-    (typeof property === 'string' && property.trim().length === 0)
-  );
-};
-
-const getProfileCompletePercent = user => {
-  const userElsewhereInfo = {
-    github: user.github,
-    linkedin: user.linkedin,
-    twitter: user.twitter,
-    website: user.website
-  };
-
-  const userElsewhereValues = values(userElsewhereInfo).filter(
-    value => !isEmptyProperty(value)
-  ).length;
-
-  const userMinRequiredInfo = {
-    name: user.name,
-    organization: user.organization,
-    languages: user.languages,
-    skills: user.skills,
-    email: user.email,
-    elsewhere: userElsewhereValues > 0 ? userElsewhereValues : undefined
-  };
-
-  const userKeys = size(userMinRequiredInfo);
-  const nonEmptyValues = values(userMinRequiredInfo).filter(
-    value => !isEmptyProperty(value)
-  ).length;
-
-  return Math.round((nonEmptyValues / userKeys) * 100);
-};
 
 const ProfileDetailsComponent = props => {
   const {
@@ -69,6 +30,7 @@ const ProfileDetailsComponent = props => {
     user,
     userStats,
     loadedUserInfo,
+    profileCompletePercent,
     switchValue,
     toggleNetworkSwitch,
     currentTab,
@@ -81,16 +43,15 @@ const ProfileDetailsComponent = props => {
 
   let bodyClass;
 
-  const percentageComplete = getProfileCompletePercent(user);
-
   const pageBanner = (
     <React.Fragment>
       <PageBanner onClose={onClosePageBanner}>
         <ProgressBar
           heading="Profile Strength"
-          percentage={percentageComplete}
+          percentage={profileCompletePercent}
           onClose={onClosePageBanner}
           margin="medium"
+          size="medium"
         />
         <Button onClick={onEdit} type="link">
           Edit Profile
@@ -169,7 +130,7 @@ const ProfileDetailsComponent = props => {
 
   return (
     <div>
-      {showBanner && percentageComplete < 100 && pageBanner}
+      {showBanner && profileCompletePercent < 100 && pageBanner}
       <div className={`col-xs-12 fullHeight ${bodyClass}`}>{body}</div>
     </div>
   );
@@ -180,6 +141,7 @@ const mapStateToProps = (state, props) => {
   const loadedUserInfo = loadedUserInfoSelector(state);
   const loadedUser = loadedUserSelector(state);
   const profileUI = profileUISelector(state);
+  const profileCompletePercent = profileStrengthSelector(state);
   const userStats = loadedUserStatsSelector(state);
 
   return {
@@ -188,6 +150,7 @@ const mapStateToProps = (state, props) => {
     userStats,
     switchValue: profileUI.switchValue,
     currentTab: profileUI.currentTab,
+    profileCompletePercent,
     loadedUserInfo,
     onEditProfile: props.onEditProfile
   };

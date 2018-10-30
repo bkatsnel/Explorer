@@ -41,7 +41,7 @@ const PageBanner = props => {
       ${customClass ? customClass : ''}
     `}
     >
-      {props.children}
+      <div className={styles.pageBannerContent}>{props.children}</div>
       {onClose && closeButton}
     </div>
   );

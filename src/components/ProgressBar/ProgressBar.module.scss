@@ -1,26 +1,24 @@
 @import "~styles/variables.scss";
 
+$progress-bar-height: $base-spacing * 0.75;
+
 .progressBarAll {
-  white-space: nowrap;
-  overflow: hidden;
-  display: flex;
-  flex-wrap: nowrap; 
+  display: inline-flex;
   align-items: center;
+  min-width: $progress-bar-height;
+  width: 100%;
 }
 
 .progressBar {
-  position: relative;
-  height: $base-line-height / 5;
-  width: 30em;
-  flex: 1 1 auto;
-  border-radius: 50px;
-  border: $base-border-width solid #333;
-  color: white;
+  overflow: hidden;
+  background-color: $brand-grey;
+  height: $progress-bar-height;
+  border-radius: $progress-bar-height / 2;
+  flex: 1 1;
 }
 
 .progressBarFiller {
-  position: absolute;
-  background: #1da598;
+  background-color: #1da598;
   border-radius: inherit;
   height: inherit;
   transition: width 0.2s ease-in;
